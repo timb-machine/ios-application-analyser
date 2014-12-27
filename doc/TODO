@@ -1,0 +1,32 @@
+* Binary
+	* Entitlements
+* Class dump
+	* File
+	* Keychain
+	* SSL
+		* Pinning
+		* Ciphers
+	* Rooting
+	* Debugging
+	* SQL
+* File
+	* Metadata
+	* HTML
+	* WebView cache
+	* PList
+		* OS
+		* URL handlers
+	* Configuration
+	* Key material
+	* Changes
+* Dumping
+	* Memory
+	* Keychain
+	* SQLite
+	* Application cloning
+* Runtime
+	* Snapshots
+		* Reversion
+			* Files
+			* Keychain
+	* URL handlers

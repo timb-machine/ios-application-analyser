@@ -1,0 +1,95 @@
+#!/bin/sh
+# $Revision$
+#
+# Redistribution and use in source and binary forms, with or without
+# modification, are permitted provided that the following conditions are met:
+#
+# * Redistributions of source code must retain the above copyright notice, this
+# list of conditions and the following disclaimer.
+# * Redistributions in binary form must reproduce the above copyright notice,
+# this list of conditions and the following disclaimer in the documentation
+# and/or other materials provided with the distribution.
+# * Neither the name of the Nth Dimension nor the names of its contributors may
+# be used to endorse or promote products derived from this software without
+# specific prior written permission.
+#
+# THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+# AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+# IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+# ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
+# LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+# CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+# SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+# INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+# CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+# ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+# POSSIBILITY OF SUCH DAMAGE.
+#
+# (c) Tim Brown, 2014
+# <mailto:timb@nth-dimension.org.uk>
+# <http://www.nth-dimension.org.uk/> / <http://www.machine.org.uk/>
+
+if [ -z "${binaryincluded}" ]
+then
+
+binaryincluded=1
+
+. lib/misc/file
+. lib/misc/stdio
+
+binary_check_or_decrypt () {
+	if [ "`file_is_regular "\`basename "${FILENAME}"\`.decrypted.$$"`" -ne 1 ]
+	then
+		# TODO find a better location for this, maybe improve it to set a location to save binary to?
+		DYLD_INSERT_LIBRARIES="tools/3rdparty/dumpdecrypted/dumpdecrypted.dylib" "${FILENAME}"
+		if [ "`file_is_regular "\`basename "${FILENAME}"\`.decrypted"`" ]
+		then
+			mv "`basename "${FILENAME}"`.decrypted" "`basename "${FILENAME}"`.decrypted.$$"
+		else
+			cp "${FILENAME}" "`basename "${FILENAME}"`.decrypted.$$"
+		fi
+	fi
+}
+
+binary_name () {
+	printf -- "`basename "${FILENAME}"`\n"
+}
+
+binary_list () {
+	printf "`basename "${FILENAME}"`.decrypted.$$\n"
+	file_list_by_filename "*.dylib"
+}
+
+binary_encrypted () {
+	filename="${1}"
+	[ "`file_is_regular "${filename}"`" ] || false
+	if [ -n "`otool -l "${filename}" | grep "cryptid" | grep -v " 0"`" ]
+	then
+		printf -- "1\n"
+	else
+		printf -- "0\n"
+	fi
+}
+
+binary_pie () {
+	filename="${1}"
+	[ "`file_is_regular "${filename}"`" ] || false
+	if [ -n "`otool -hv "${filename}" | grep "PIE"`" ]
+	then
+		printf -- "1\n"
+	else
+		printf -- "0\n"
+	fi
+}
+
+binary_matches_api () {
+	filename="${1}"
+	searchstring="${2}"
+	[ "`file_is_regular "${filename}"`" ] || false
+	[ "`validate_is_string "${searchstring}"`" ] || false
+        otool -Iv "${filename}" | egrep -oh "${searchstring}" | sort | uniq | xargs | tr " " ","
+}
+
+binary_check_or_decrypt
+
+fi
