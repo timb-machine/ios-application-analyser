@@ -44,7 +44,7 @@ binary_insecure_random_main () {
 		random_apis="`binary_matches_api "${filename}" "srand|random"`"
 		if [ -n "${random_apis}" ]
 		then
-			stdio_message_warn "binary_insecure_random" "${filename} uses random APIs (${random_apis})"
+			stdio_message_warn "binary_insecure_random" "${filename} uses insecure random APIs (${random_apis})"
 		fi
 	done
 }

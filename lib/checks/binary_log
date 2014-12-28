@@ -29,7 +29,7 @@
 # <mailto:timb@nth-dimension.org.uk>
 # <http://www.nth-dimension.org.uk/> / <http://www.machine.org.uk/>
 #
-# Check if binary files call NSLog function
+# Check if binary files call logging function
 
 . lib/misc/stdio
 . lib/misc/binary
@@ -41,10 +41,9 @@ binary_log_init () {
 binary_log_main () {
 	binary_list | while read filename
 	do
-		log_apis="`binary_matches_api "${filename}" "NSLog"`"
-		if [ -n "${log_apis}" ]
+		if [ -n "`binary_matches_api "${filename}" "NSLog"`" ]
 		then
-			stdio_message_warn "binary_log" "${filename} uses NSLog API"
+			stdio_message_warn "binary_log" "${filename} uses logging API"
 		fi
 	done
 }

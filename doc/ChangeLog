@@ -1,6 +1,7 @@
 0.1 - 0.2
 
 * Converted to use unix-privesc-check style file layout
+* Cleaned up check descriptions and messages
 
 0.0 - 0.1
 

@@ -43,7 +43,7 @@ binary_ptrace_main () {
 	do
 		if [ -z "`binary_matches_api "${filename}" "ptrace"`" ]
 		then
-			stdio_message_warn "binary_ptrace" "${filename} does not use ptrace API"
+			stdio_message_warn "binary_ptrace" "${filename} does not use APIs to prevent debugging"
 		fi
 	done
 }

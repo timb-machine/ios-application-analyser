@@ -41,8 +41,7 @@ binary_malloc_not_calloc_init () {
 binary_malloc_not_calloc_main () {
 	binary_list | while read filename
 	do
-		malloc_apis="`binary_matches_api "${filename}" "malloc"`"
-		if [ -n "${malloc_apis}" ]
+		if [ -n "`binary_matches_api "${filename}" "malloc"`" ]
 		then
 			stdio_message_warn "binary_malloc_not_calloc" "${filename} uses malloc API rather than calloc API"
 		fi
