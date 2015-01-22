@@ -51,7 +51,6 @@ int main(int argc, char **argv) {
 		} else {
 			loopcounter = 0;
 			while ((keystring = asl_key(aslmessage, loopcounter)) != NULL) {
-			
 				printf("%s: %s\n", keystring, asl_get(aslmessage, keystring));
 				loopcounter ++;
 			}
