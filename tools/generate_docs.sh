@@ -51,6 +51,11 @@ then
 			printf -- "h2. ${functionname}\n"
 			printf -- "\n"
 		fi
+		if [ -n "`printf -- "${line}" | egrep "binary_matches_api"`" ]
+		then
+			searchstring="`printf "${line} | cut -f 3 -d " "`"
+			printf -- "	< ${searchstring}\n"
+		fi
 		if [ -n "`printf -- "${line}" | egrep "=\\".{[1-9]}"`" ]
 		then
 			variablename="`printf -- \"${line}\" | cut -f 1 -d "=" | sed "s/%/%%/g"`"
