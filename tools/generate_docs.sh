@@ -53,7 +53,7 @@ then
 		fi
 		if [ -n "`printf -- "${line}" | egrep "binary_matches_api"`" ]
 		then
-			searchstring="`printf "${line} | cut -f 3 -d " "`"
+			searchstring="`printf "${line}" | cut -f 3 -d " "`"
 			printf -- "	< ${searchstring}\n"
 		fi
 		if [ -n "`printf -- "${line}" | egrep "=\\".{[1-9]}"`" ]
