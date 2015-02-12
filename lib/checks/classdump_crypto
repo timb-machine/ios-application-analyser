@@ -49,12 +49,12 @@ classdump_crypto_main () {
 		weak_crypto_apis="`classdump_matches_ios_api "${filename}" "DES|3ES|RC2|RC4|ECB|CBC"`"
 		if [ -n "${weak_crypto_apis}" ]
 		then
-			stdio_message_log "classdump_crypto" "${filename} may use weak crypto (${weak_crypto_apis})"
+			stdio_message_log "classdump_crypto" "${filename} may use weak crypto APIs (${weak_crypto_apis})"
 		fi
 		strong_crypto_apis="`classdump_matches_ios_api "${filename}" "AES|CAST|RSA"`"
 		if [ -n "${strong_crypto_apis}" ]
 		then
-			stdio_message_log "classdump_crypto" "${filename} may use strong crypto (${strong_crypto_apis})"
+			stdio_message_log "classdump_crypto" "${filename} may use strong crypto APIs (${strong_crypto_apis})"
 		fi
 		# TODO RSA
 	done
