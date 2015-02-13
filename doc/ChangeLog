@@ -6,6 +6,8 @@
 * Added tools/dump_process
 * tools/generate_docs.sh now dumps binary search strings
 * Cleaned up based on shellcheck output
+* Added note to doc/COPYING referencing Twitter exchange with i0n1c about
+  dumpdecrypted
 
 0.0 - 0.1
 
