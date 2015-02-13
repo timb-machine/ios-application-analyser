@@ -38,7 +38,7 @@ key_material_init() {
 	stdio_message_log "key_material" "Starting at: $(date)"
 }
 
-key_material_main () {
+key_material_main() {
 	file_list_by_filename "*\.cer|*\.pem|*\.cert|*\.crt|*\.pub|*\.key|*\.pfx|*\.p12" | while read filename
 	do
 		stdio_message_warn "key_material" "${filename} may be key material"
@@ -46,6 +46,6 @@ key_material_main () {
 	done
 }
 
-key_material_fini () {
+key_material_fini() {
 	stdio_message_log "key_material" "Ending at: $(date)"
 }

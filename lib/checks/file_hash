@@ -34,11 +34,11 @@
 . lib/misc/stdio
 . lib/misc/file
 
-file_hash_init () {
+file_hash_init() {
 	stdio_message_log "file_hash" "Starting at: $(date)"
 }
 
-file_hash_main () {
+file_hash_main() {
 	file_list_by_perm "^-........." | while read filename
 	do
 		file_md5sum "${filename}" | while read md5hash
@@ -48,6 +48,6 @@ file_hash_main () {
 	done
 }
 
-file_hash_fini () {
+file_hash_fini() {
 	stdio_message_log "file_hash" "Ending at: $(date)"
 }

@@ -34,11 +34,11 @@
 . lib/misc/stdio
 . lib/misc/binary
 
-binary_ptrace_init () {
+binary_ptrace_init() {
 	stdio_message_log "binary_ptrace" "Starting at: $(date)"
 }
 
-binary_ptrace_main () {
+binary_ptrace_main() {
 	binary_list | while read filename
 	do
 		if [ -z "$(binary_matches_api "${filename}" "ptrace")" ]
@@ -48,6 +48,6 @@ binary_ptrace_main () {
 	done
 }
 
-binary_ptrace_fini () {
+binary_ptrace_fini() {
 	stdio_message_log "binary_ptrace" "Ending at: $(date)"
 }

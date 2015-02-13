@@ -34,11 +34,11 @@
 . lib/misc/stdio
 . lib/misc/binary
 
-binary_insecure_random_init () {
+binary_insecure_random_init() {
 	stdio_message_log "binary_insecure_random" "Starting at: $(date)"
 }
 
-binary_insecure_random_main () {
+binary_insecure_random_main() {
 	binary_list | while read filename
 	do
 		random_apis="$(binary_matches_api "${filename}" "srand|random")"
@@ -49,6 +49,6 @@ binary_insecure_random_main () {
 	done
 }
 
-binary_insecure_random_fini () {
+binary_insecure_random_fini() {
 	stdio_message_log "binary_insecure_random" "Ending at: $(date)"
 }

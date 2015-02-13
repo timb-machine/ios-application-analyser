@@ -36,7 +36,7 @@ logincluded=1
 
 . lib/misc/stdio
 
-log_list () {
+log_list() {
 	pattern="${1}"
 	tools/dump_log/dump_log "${pattern}" | while read line
 	do

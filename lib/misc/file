@@ -36,7 +36,7 @@ fileincluded=1
 
 . lib/misc/validate
 
-file_check_or_generate_cache () {
+file_check_or_generate_cache() {
 	if [ "$(file_is_regular "$(basename "${FILENAME}").files_cache.$$")" -ne 1 ]
 	then
 		stdio_message_log "file" "Generating file cache..."
@@ -54,7 +54,7 @@ file_check_or_generate_cache () {
 	fi
 }
 
-file_list_by_perm () {
+file_list_by_perm() {
 	# patterns must always take the form "^.......... " i.e. regular expressions. for example "^...s...... |^....S...... " will select setuid binaries 
 	pattern="${1}"
 	[ "$(validate_is_string "${pattern}")" ] || false
@@ -64,7 +64,7 @@ file_list_by_perm () {
 	done
 }
 
-file_list_by_filename () {
+file_list_by_filename() {
 	# patterns must always take the form " /path/*/find" i.e. regular expressions
 	pattern="${1}"
 	[ "$(validate_is_string "${pattern}")" ] || false
@@ -76,7 +76,7 @@ file_list_by_filename () {
 	done
 }
 
-file_is_regular () {
+file_is_regular() {
 	filename="${1}"
 	[ "$(validate_is_string "${filename}")" ] || false
 	if [ -f "${filename}" ]
@@ -87,7 +87,7 @@ file_is_regular () {
 	fi
 }
 
-file_is_directory () {
+file_is_directory() {
 	filename="${1}"
 	[ "$(validate_is_string "${filename}")" ] || false
 	if [ -d "${filename}" ]
@@ -98,7 +98,7 @@ file_is_directory () {
 	fi
 }
 
-file_md5sum () {
+file_md5sum() {
 	filename="${1}"
 	[ "$(file_is_regular "${filename}")" ] || false
 	md5sum "${filename}" | while read md5sum _

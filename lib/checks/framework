@@ -38,7 +38,7 @@ framework_init() {
 	stdio_message_log "framework" "Starting at: $(date)"
 }
 
-framework_main () {
+framework_main() {
 	file_list_by_filename "config.xml|cordova.xml|phonegap.xml|plugins.xml" | while read filename
 	do
 		stdio_message_log "framework" "${filename} may be PhoneGap/Cordova config"
@@ -49,6 +49,6 @@ framework_main () {
 	done
 }
 
-framework_fini () {
+framework_fini() {
 	stdio_message_log "framework" "Ending at: $(date)"
 }

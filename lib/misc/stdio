@@ -36,7 +36,7 @@ stdioincluded=1
 
 . lib/misc/validate
 
-stdio_message_log () {
+stdio_message_log() {
 	check="${1}"
 	message="${2}"
 	[ "$(validate_is_string "${check}")" ] || false
@@ -47,7 +47,7 @@ stdio_message_log () {
 	fi
 }
 
-stdio_message_warn () {
+stdio_message_warn() {
 	check="${1}"
 	message="${2}"
 	[ "$(validate_is_string "${check}")" ] || false
@@ -55,7 +55,7 @@ stdio_message_warn () {
 	stdio_format_message "33" "W" "${check}" "${message}"
 }
 
-stdio_message_debug () {
+stdio_message_debug() {
 	check="${1}"
 	message="${2}"
 	[ "$(validate_is_string "${check}")" ] || false
@@ -66,7 +66,7 @@ stdio_message_debug () {
 	fi
 }
 
-stdio_message_error () {
+stdio_message_error() {
 	check="${1}"
 	message="${2}"
 	[ "$(validate_is_string "${check}")" ] || false
@@ -74,7 +74,7 @@ stdio_message_error () {
 	stdio_format_message "31" "E" "${check}" "${message}" >&2
 }
 
-stdio_format_message () {
+stdio_format_message() {
 	color="${1}"
 	type="${2}"
 	check="${3}"

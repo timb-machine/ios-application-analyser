@@ -34,11 +34,11 @@
 . lib/misc/stdio
 . lib/misc/binary
 
-binary_hashing_init () {
+binary_hashing_init() {
 	stdio_message_log "binary_hashing" "Starting at: $(date)"
 }
 
-binary_hashing_main () {
+binary_hashing_main() {
 	binary_list | while read filename
 	do
 		weak_hashing_apis="$(binary_matches_api "${filename}" "CC_MD2_Init|CC_MD2_Update|CC_MD2_Final|CC_MD2|MD2_Init|MD2_Update|MD2_Final|CC_MD4_Init|CC_MD4_Update|CC_MD4_Final|CC_MD4|MD4_Init|MD4_Update|MD4_Final|CC_MD5_Init|CC_MD5_Update|CC_MD5_Final|CC_MD5|MD5_Init|MD5_Update|MD5_Final|MD5Init|MD5Update|MD5Final|CC_SHA1_Init|CC_SHA1_Update|CC_SHA1_Final|CC_SHA1|SHA1_Init|SHA1_Update|SHA1_Final")"
@@ -54,6 +54,6 @@ binary_hashing_main () {
 	done
 }
 
-binary_hashing_fini () {
+binary_hashing_fini() {
 	stdio_message_log "binary_hashing" "Ending at: $(date)"
 }

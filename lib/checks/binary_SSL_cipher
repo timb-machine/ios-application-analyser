@@ -34,11 +34,11 @@
 . lib/misc/stdio
 . lib/misc/binary
 
-binary_SSL_cipher_init () {
+binary_SSL_cipher_init() {
 	stdio_message_log "binary_SSL_cipher" "Starting at: $(date)"
 }
 
-binary_SSL_cipher_main () {
+binary_SSL_cipher_main() {
 	binary_list | while read filename
 	do
 		if [ -z "$(binary_matches_api "${filename}" "SSLSetEnabledCiphers")" ]
@@ -48,6 +48,6 @@ binary_SSL_cipher_main () {
 	done
 }
 
-binary_SSL_cipher_fini () {
+binary_SSL_cipher_fini() {
 	stdio_message_log "binary_SSL_cipher" "Ending at: $(date)"
 }

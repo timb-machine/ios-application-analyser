@@ -34,11 +34,11 @@
 . lib/misc/stdio
 . lib/misc/binary
 
-binary_configuration_profile_init () {
+binary_configuration_profile_init() {
 	stdio_message_log "binary_configuration_profile" "Starting at: $(date)"
 }
 
-binary_configuration_profile_main () {
+binary_configuration_profile_main() {
 	binary_list | while read filename
 	do
 		if [ -n "$(binary_matches_api "${filename}" "SecCertificateCreateWithData")" ]
@@ -60,6 +60,6 @@ binary_configuration_profile_main () {
 	done
 }
 
-binary_configuration_profile_fini () {
+binary_configuration_profile_fini() {
 	stdio_message_log "binary_configuration_profile" "Ending at: $(date)"
 }

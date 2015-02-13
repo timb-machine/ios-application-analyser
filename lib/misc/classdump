@@ -38,7 +38,7 @@ classdumpincluded=1
 . lib/misc/stdio
 . lib/misc/binary
 
-classdump_check_or_classdump () {
+classdump_check_or_classdump() {
 	[ "$(file_is_regular "$(basename "${FILENAME}").decrypted.$$")" ] || false
 	if [ "$(file_is_directory "$(basename "${FILENAME}").classdump.$$")" -ne 1 ]
 	then
@@ -49,11 +49,11 @@ classdump_check_or_classdump () {
 	fi
 }
 
-classdump_list () {
+classdump_list() {
 	find "$(basename "${FILENAME}").classdump.$$" -type f
 }
 
-classdump_matches_ios_api () {
+classdump_matches_ios_api() {
 	filename="${1}"
 	searchstring="${2}"
 	[ "$(file_is_regular "${filename}")" ] || false

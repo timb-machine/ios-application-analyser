@@ -38,7 +38,7 @@ sqlite_database_init() {
 	stdio_message_log "sqlite_database" "Starting at: $(date)"
 }
 
-sqlite_database_main () {
+sqlite_database_main() {
 	file_list_by_filename "*\.db|*\.sqlitedb|*\.sqlite" | while read filename
 	do
 		stdio_message_warn "sqlite_database" "${filename} may be a sqlite database"
@@ -46,6 +46,6 @@ sqlite_database_main () {
 	done
 }
 
-sqlite_database_fini () {
+sqlite_database_fini() {
 	stdio_message_log "sqlite_database" "Ending at: $(date)"
 }

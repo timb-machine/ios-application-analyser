@@ -34,11 +34,11 @@
 . lib/misc/stdio
 . lib/misc/classdump
 
-classdump_crypto_init () {
+classdump_crypto_init() {
 	stdio_message_log "classdump_crypto" "Starting at: $(date)"
 }
 
-classdump_crypto_main () {
+classdump_crypto_main() {
 	classdump_list | while read filename
 	do
 		crypto_apis="$(classdump_matches_ios_api "${filename}" "CCryptorRef")"
@@ -60,6 +60,6 @@ classdump_crypto_main () {
 	done
 }
 
-classdump_crypto_fini () {
+classdump_crypto_fini() {
 	stdio_message_log "classdump_crypto" "Ending at: $(date)"
 }

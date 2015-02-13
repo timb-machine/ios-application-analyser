@@ -37,7 +37,7 @@ binaryincluded=1
 . lib/misc/file
 . lib/misc/stdio
 
-binary_check_or_decrypt () {
+binary_check_or_decrypt() {
 	if [ "$(file_is_regular "$(basename "${FILENAME}").decrypted.$$")" -ne 1 ]
 	then
 		# TODO find a better location for this, maybe improve it to set a location to save binary to?
@@ -51,16 +51,16 @@ binary_check_or_decrypt () {
 	fi
 }
 
-binary_name () {
+binary_name() {
 	printf "%s\n" "$(basename "${FILENAME}")"
 }
 
-binary_list () {
+binary_list() {
 	printf "%s.decrypted.$$\n" "$(basename "${FILENAME}")"
 	file_list_by_filename "*.dylib"
 }
 
-binary_encrypted () {
+binary_encrypted() {
 	filename="${1}"
 	[ "$(file_is_regular "${filename}")" ] || false
 	if [ -n "$(otool -l "${filename}" | grep "cryptid" | grep -v " 0")" ]
@@ -71,7 +71,7 @@ binary_encrypted () {
 	fi
 }
 
-binary_pie () {
+binary_pie() {
 	filename="${1}"
 	[ "$(file_is_regular "${filename}")" ] || false
 	if [ -n "$(otool -hv "${filename}" | grep "PIE")" ]
@@ -82,7 +82,7 @@ binary_pie () {
 	fi
 }
 
-binary_matches_api () {
+binary_matches_api() {
 	filename="${1}"
 	searchstring="${2}"
 	[ "$(file_is_regular "${filename}")" ] || false

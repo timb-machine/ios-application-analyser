@@ -34,11 +34,11 @@
 . lib/misc/stdio
 . lib/misc/binary
 
-binary_SSP_init () {
+binary_SSP_init() {
 	stdio_message_log "binary_SSP" "Starting at: $(date)"
 }
 
-binary_SSP_main () {
+binary_SSP_main() {
 	binary_list | while read filename
 	do
 		SSP_apis="$(binary_matches_api "${filename}" "_stack_chk_fail")"
@@ -49,6 +49,6 @@ binary_SSP_main () {
 	done
 }
 
-binary_SSP_fini () {
+binary_SSP_fini() {
 	stdio_message_log "binary_SSP" "Ending at: $(date)"
 }

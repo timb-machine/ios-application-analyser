@@ -34,11 +34,11 @@
 . lib/misc/stdio
 . lib/misc/classdump
 
-classdump_webview_init () {
+classdump_webview_init() {
 	stdio_message_log "classdump_webview" "Starting at: $(date)"
 }
 
-classdump_webview_main () {
+classdump_webview_main() {
 	classdump_list | while read filename
 	do
 		webview_classes="$(classdump_matches_ios_api "${filename}" "UIWebView")"
@@ -49,6 +49,6 @@ classdump_webview_main () {
 	done
 }
 
-classdump_webview_fini () {
+classdump_webview_fini() {
 	stdio_message_log "classdump_webview" "Ending at: $(date)"
 }

@@ -34,11 +34,11 @@
 . lib/misc/stdio
 . lib/misc/binary
 
-binary_crypto_init () {
+binary_crypto_init() {
 	stdio_message_log "binary_crypto" "Starting at: $(date)"
 }
 
-binary_crypto_main () {
+binary_crypto_main() {
 	binary_list | while read filename
 	do
 		weak_crypto_apis="$(binary_matches_api "${filename}" "kCCAlgorithmDES|kCCAlgorithm3DES||kCCAlgorithmRC2|kCCAlgorithmRC4|kCCOptionECBMode|kCCOptionCBCMode")"
@@ -55,6 +55,6 @@ binary_crypto_main () {
 	done
 }
 
-binary_crypto_fini () {
+binary_crypto_fini() {
 	stdio_message_log "binary_crypto" "Ending at: $(date)"
 }

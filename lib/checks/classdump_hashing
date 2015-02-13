@@ -34,11 +34,11 @@
 . lib/misc/stdio
 . lib/misc/classdump
 
-classdump_hashing_init () {
+classdump_hashing_init() {
 	stdio_message_log "classdump_hashing" "Starting at: $(date)"
 }
 
-classdump_hashing_main () {
+classdump_hashing_main() {
 	classdump_list | while read filename
 	do
 		weak_hashing_apis="$(classdump_matches_ios_api "${filename}" "MD2|MD4|MD5|SHA1")"
@@ -54,6 +54,6 @@ classdump_hashing_main () {
 	done
 }
 
-classdump_hashing_fini () {
+classdump_hashing_fini() {
 	stdio_message_log "classdump_hashing" "Ending at: $(date)"
 }

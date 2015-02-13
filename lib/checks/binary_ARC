@@ -49,6 +49,6 @@ binary_ARC_main () {
 	done
 }
 
-binary_ARC_fini () {
+binary_ARC_fini() {
 	stdio_message_log "binary_ARC" "Ending at: $(date)"
 }

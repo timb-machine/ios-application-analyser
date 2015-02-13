@@ -35,11 +35,11 @@
 . lib/misc/binary
 . lib/misc/log
 
-ASL_event_init () {
+ASL_event_init() {
 	stdio_message_log "ASL_event" "Starting at: $(date)"
 }
 
-ASL_event_main () {
+ASL_event_main() {
 	binary_name | while read name
 	do
 		log_list "${name}" | while read line
@@ -50,6 +50,6 @@ ASL_event_main () {
 	# TODO what else shall we search for
 }
 
-ASL_event_fini () {
+ASL_event_fini() {
 	stdio_message_log "ASL_event" "Ending at: $(date)"
 }
