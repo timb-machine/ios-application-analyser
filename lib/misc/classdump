@@ -39,25 +39,25 @@ classdumpincluded=1
 . lib/misc/binary
 
 classdump_check_or_classdump () {
-	[ "`file_is_regular "\`basename "${FILENAME}"\`.decrypted.$$"`" ] || false
-	if [ "`file_is_directory "\`basename "${FILENAME}"\`.classdump.$$"`" -ne 1 ]
+	[ "$(file_is_regular "$(basename "${FILENAME}").decrypted.$$")" ] || false
+	if [ "$(file_is_directory "$(basename "${FILENAME}").classdump.$$")" -ne 1 ]
 	then
 		stdio_message_log "classdump" "Generating classdump..."
-		mkdir "`basename "${FILENAME}"`.classdump.$$"
-		class-dump-z -y /var/iPhoneOS7.1.sdk -H -o "`basename "${FILENAME}"`.classdump.$$" "`basename "${FILENAME}"`.decrypted.$$"
+		mkdir "$(basename "${FILENAME}").classdump.$$"
+		class-dump-z -y /var/iPhoneOS7.1.sdk -H -o "$(basename "${FILENAME}").classdump.$$" "$(basename "${FILENAME}").decrypted.$$"
 		stdio_message_log "classdump" "Classdump generated..."
 	fi
 }
 
 classdump_list () {
-	find "`basename "${FILENAME}"`.classdump.$$" -type f
+	find "$(basename "${FILENAME}").classdump.$$" -type f
 }
 
 classdump_matches_ios_api () {
 	filename="${1}"
 	searchstring="${2}"
-	[ "`file_is_regular "${filename}"`" ] || false
-	[ "`validate_is_string "${searchstring}"`" ] || false
+	[ "$(file_is_regular "${filename}")" ] || false
+	[ "$(validate_is_string "${searchstring}")" ] || false
 	egrep -oh "${searchstring}" "${filename}" | sort | uniq | xargs | tr " " ","
 }
 

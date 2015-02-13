@@ -35,13 +35,13 @@
 . lib/misc/binary
 
 binary_SSP_init () {
-	stdio_message_log "binary_SSP" "Starting at: `date`"
+	stdio_message_log "binary_SSP" "Starting at: $(date)"
 }
 
 binary_SSP_main () {
 	binary_list | while read filename
 	do
-		SSP_apis="`binary_matches_api "${filename}" "_stack_chk_fail"`"
+		SSP_apis="$(binary_matches_api "${filename}" "_stack_chk_fail")"
 		if [ -z "${SSP_apis}" ]
 		then
 			stdio_message_warn "binary_SSP" "${filename} does not use SSP APIs"
@@ -50,5 +50,5 @@ binary_SSP_main () {
 }
 
 binary_SSP_fini () {
-	stdio_message_log "binary_SSP" "Ending at: `date`"
+	stdio_message_log "binary_SSP" "Ending at: $(date)"
 }

@@ -38,55 +38,55 @@ binaryincluded=1
 . lib/misc/stdio
 
 binary_check_or_decrypt () {
-	if [ "`file_is_regular "\`basename "${FILENAME}"\`.decrypted.$$"`" -ne 1 ]
+	if [ "$(file_is_regular "$(basename "${FILENAME}").decrypted.$$")" -ne 1 ]
 	then
 		# TODO find a better location for this, maybe improve it to set a location to save binary to?
 		DYLD_INSERT_LIBRARIES="tools/3rdparty/dumpdecrypted/dumpdecrypted.dylib" "${FILENAME}"
-		if [ "`file_is_regular "\`basename "${FILENAME}"\`.decrypted"`" ]
+		if [ "$(file_is_regular "$(basename "${FILENAME}").decrypted")" ]
 		then
-			mv "`basename "${FILENAME}"`.decrypted" "`basename "${FILENAME}"`.decrypted.$$"
+			mv "$(basename "${FILENAME}").decrypted" "$(basename "${FILENAME}").decrypted.$$"
 		else
-			cp "${FILENAME}" "`basename "${FILENAME}"`.decrypted.$$"
+			cp "${FILENAME}" "$(basename "${FILENAME}").decrypted.$$"
 		fi
 	fi
 }
 
 binary_name () {
-	printf -- "`basename "${FILENAME}"`\n"
+	printf "%s\n" "$(basename "${FILENAME}")"
 }
 
 binary_list () {
-	printf "`basename "${FILENAME}"`.decrypted.$$\n"
+	printf "%s.decrypted.$$\n" "$(basename "${FILENAME}")"
 	file_list_by_filename "*.dylib"
 }
 
 binary_encrypted () {
 	filename="${1}"
-	[ "`file_is_regular "${filename}"`" ] || false
-	if [ -n "`otool -l "${filename}" | grep "cryptid" | grep -v " 0"`" ]
+	[ "$(file_is_regular "${filename}")" ] || false
+	if [ -n "$(otool -l "${filename}" | grep "cryptid" | grep -v " 0")" ]
 	then
-		printf -- "1\n"
+		printf "1\n"
 	else
-		printf -- "0\n"
+		printf "0\n"
 	fi
 }
 
 binary_pie () {
 	filename="${1}"
-	[ "`file_is_regular "${filename}"`" ] || false
-	if [ -n "`otool -hv "${filename}" | grep "PIE"`" ]
+	[ "$(file_is_regular "${filename}")" ] || false
+	if [ -n "$(otool -hv "${filename}" | grep "PIE")" ]
 	then
-		printf -- "1\n"
+		printf "1\n"
 	else
-		printf -- "0\n"
+		printf "0\n"
 	fi
 }
 
 binary_matches_api () {
 	filename="${1}"
 	searchstring="${2}"
-	[ "`file_is_regular "${filename}"`" ] || false
-	[ "`validate_is_string "${searchstring}"`" ] || false
+	[ "$(file_is_regular "${filename}")" ] || false
+	[ "$(validate_is_string "${searchstring}")" ] || false
         otool -Iv "${filename}" | egrep -oh "${searchstring}" | sort | uniq | xargs | tr " " ","
 }
 

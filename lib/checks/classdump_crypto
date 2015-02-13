@@ -35,23 +35,23 @@
 . lib/misc/classdump
 
 classdump_crypto_init () {
-	stdio_message_log "classdump_crypto" "Starting at: `date`"
+	stdio_message_log "classdump_crypto" "Starting at: $(date)"
 }
 
 classdump_crypto_main () {
 	classdump_list | while read filename
 	do
-		crypto_apis="`classdump_matches_ios_api "${filename}" "CCryptorRef"`"
+		crypto_apis="$(classdump_matches_ios_api "${filename}" "CCryptorRef")"
 		if [ -n "${crypto_apis}" ]
 		then
 			stdio_message_log "classdump_crypto" "${filename} uses crypto APIs (${crypto_apis})"
 		fi
-		weak_crypto_apis="`classdump_matches_ios_api "${filename}" "DES|3ES|RC2|RC4|ECB|CBC"`"
+		weak_crypto_apis="$(classdump_matches_ios_api "${filename}" "DES|3ES|RC2|RC4|ECB|CBC")"
 		if [ -n "${weak_crypto_apis}" ]
 		then
 			stdio_message_log "classdump_crypto" "${filename} may use weak crypto APIs (${weak_crypto_apis})"
 		fi
-		strong_crypto_apis="`classdump_matches_ios_api "${filename}" "AES|CAST|RSA"`"
+		strong_crypto_apis="$(classdump_matches_ios_api "${filename}" "AES|CAST|RSA")"
 		if [ -n "${strong_crypto_apis}" ]
 		then
 			stdio_message_log "classdump_crypto" "${filename} may use strong crypto APIs (${strong_crypto_apis})"
@@ -61,5 +61,5 @@ classdump_crypto_main () {
 }
 
 classdump_crypto_fini () {
-	stdio_message_log "classdump_crypto" "Ending at: `date`"
+	stdio_message_log "classdump_crypto" "Ending at: $(date)"
 }

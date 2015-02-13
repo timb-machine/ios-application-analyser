@@ -35,7 +35,7 @@
 . lib/misc/binary
 
 sqlite_database_init() {
-	stdio_message_log "sqlite_database" "Starting at: `date`"
+	stdio_message_log "sqlite_database" "Starting at: $(date)"
 }
 
 sqlite_database_main () {
@@ -47,5 +47,5 @@ sqlite_database_main () {
 }
 
 sqlite_database_fini () {
-	stdio_message_log "sqlite_database" "Ending at: `date`"
+	stdio_message_log "sqlite_database" "Ending at: $(date)"
 }

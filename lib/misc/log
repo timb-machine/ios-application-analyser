@@ -40,7 +40,7 @@ log_list () {
 	pattern="${1}"
 	tools/dump_log/dump_log "${pattern}" | while read line
 	do
-		printf -- "${line}\n"
+		printf "%s\n" "${line}"
 	done
 }
 

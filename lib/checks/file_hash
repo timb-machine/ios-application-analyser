@@ -35,7 +35,7 @@
 . lib/misc/file
 
 file_hash_init () {
-	stdio_message_log "file_hash" "Starting at: `date`"
+	stdio_message_log "file_hash" "Starting at: $(date)"
 }
 
 file_hash_main () {
@@ -49,5 +49,5 @@ file_hash_main () {
 }
 
 file_hash_fini () {
-	stdio_message_log "file_hash" "Ending at: `date`"
+	stdio_message_log "file_hash" "Ending at: $(date)"
 }

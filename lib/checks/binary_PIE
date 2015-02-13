@@ -35,13 +35,13 @@
 . lib/misc/binary
 
 binary_PIE_init() {
-	stdio_message_log "binary_PIE" "Starting at: `date`"
+	stdio_message_log "binary_PIE" "Starting at: $(date)"
 }
 
 binary_PIE_main () {
 	binary_list | while read filename
 	do
-		if [ "`binary_pie "${filename}"`" -ne 1 ]
+		if [ "$(binary_pie "${filename}")" -ne 1 ]
 		then
 			stdio_message_warn "binary_pie" "${filename} not compiled with PIE (Position Independent Executable)"
 		fi
@@ -49,5 +49,5 @@ binary_PIE_main () {
 }
 
 binary_PIE_fini () {
-	stdio_message_log "binary_PIE" "Ending at: `date`"
+	stdio_message_log "binary_PIE" "Ending at: $(date)"
 }

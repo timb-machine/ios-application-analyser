@@ -36,7 +36,7 @@
 . lib/misc/log
 
 ASL_event_init () {
-	stdio_message_log "ASL_event" "Starting at: `date`"
+	stdio_message_log "ASL_event" "Starting at: $(date)"
 }
 
 ASL_event_main () {
@@ -51,5 +51,5 @@ ASL_event_main () {
 }
 
 ASL_event_fini () {
-	stdio_message_log "ASL_event" "Ending at: `date`"
+	stdio_message_log "ASL_event" "Ending at: $(date)"
 }

@@ -35,13 +35,13 @@
 . lib/misc/binary
 
 binary_ptrace_init () {
-	stdio_message_log "binary_ptrace" "Starting at: `date`"
+	stdio_message_log "binary_ptrace" "Starting at: $(date)"
 }
 
 binary_ptrace_main () {
 	binary_list | while read filename
 	do
-		if [ -z "`binary_matches_api "${filename}" "ptrace"`" ]
+		if [ -z "$(binary_matches_api "${filename}" "ptrace")" ]
 		then
 			stdio_message_warn "binary_ptrace" "${filename} does not use APIs to prevent debugging"
 		fi
@@ -49,5 +49,5 @@ binary_ptrace_main () {
 }
 
 binary_ptrace_fini () {
-	stdio_message_log "binary_ptrace" "Ending at: `date`"
+	stdio_message_log "binary_ptrace" "Ending at: $(date)"
 }

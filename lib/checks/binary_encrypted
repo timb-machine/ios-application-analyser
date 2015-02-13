@@ -35,13 +35,13 @@
 . lib/misc/binary
 
 binary_encrypted_init() {
-	stdio_message_log "binary_encrypted" "Starting at: `date`"
+	stdio_message_log "binary_encrypted" "Starting at: $(date)"
 }
 
 binary_encrypted_main () {
 	binary_list | while read filename
 	do
-		if [ "`binary_encrypted "${filename}"`" -ne 1 ]
+		if [ "$(binary_encrypted "${filename}")" -ne 1 ]
 		then
 			stdio_message_warn "binary_encrypted" "${filename} not encrypted"
 		fi
@@ -49,5 +49,5 @@ binary_encrypted_main () {
 }
 
 binary_encrypted_fini () {
-	stdio_message_log "binary_encrypted" "Ending at: `date`"
+	stdio_message_log "binary_encrypted" "Ending at: $(date)"
 }

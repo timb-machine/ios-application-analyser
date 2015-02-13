@@ -5,6 +5,7 @@
 * Added lib/checks/binary_SSL_cipher and lib/checks/binary_SSL_protocol
 * Added tools/dump_process
 * tools/generate_docs.sh now dumps binary search strings
+* Cleaned up based on shellcheck output
 
 0.0 - 0.1
 

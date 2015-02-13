@@ -35,13 +35,13 @@
 . lib/misc/binary
 
 binary_ARC_init() {
-	stdio_message_log "binary_ARC" "Starting at: `date`"
+	stdio_message_log "binary_ARC" "Starting at: $(date)"
 }
 
 binary_ARC_main () {
 	binary_list | while read filename
 	do
-		ARC_apis="`binary_matches_api "${filename}" "_objc_init|_objc_load|_objc_store|_objc_move|_objc_copy|_objc_retain|_objc_unretain|_objc_release|_objc_autorelease"`"
+		ARC_apis="$(binary_matches_api "${filename}" "_objc_init|_objc_load|_objc_store|_objc_move|_objc_copy|_objc_retain|_objc_unretain|_objc_release|_objc_autorelease")"
 		if [ -z "${ARC_apis}" ]
 		then
 			stdio_message_warn "binary_ARC" "${filename} does not use ARC APIs"
@@ -50,5 +50,5 @@ binary_ARC_main () {
 }
 
 binary_ARC_fini () {
-	stdio_message_log "binary_ARC" "Ending at: `date`"
+	stdio_message_log "binary_ARC" "Ending at: $(date)"
 }

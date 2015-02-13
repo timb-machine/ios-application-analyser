@@ -35,13 +35,13 @@
 . lib/misc/binary
 
 binary_malloc_not_calloc_init () {
-	stdio_message_log "binary_malloc_not_calloc" "Starting at: `date`"
+	stdio_message_log "binary_malloc_not_calloc" "Starting at: $(date)"
 }
 
 binary_malloc_not_calloc_main () {
 	binary_list | while read filename
 	do
-		if [ -n "`binary_matches_api "${filename}" "malloc"`" ]
+		if [ -n "$(binary_matches_api "${filename}" "malloc")" ]
 		then
 			stdio_message_warn "binary_malloc_not_calloc" "${filename} uses malloc API rather than calloc API"
 		fi
@@ -49,5 +49,5 @@ binary_malloc_not_calloc_main () {
 }
 
 binary_malloc_not_calloc_fini () {
-	stdio_message_log "binary_malloc_not_calloc" "Ending at: `date`"
+	stdio_message_log "binary_malloc_not_calloc" "Ending at: $(date)"
 }

@@ -35,13 +35,13 @@
 . lib/misc/binary
 
 binary_log_init () {
-	stdio_message_log "binary_log" "Starting at: `date`"
+	stdio_message_log "binary_log" "Starting at: $(date)"
 }
 
 binary_log_main () {
 	binary_list | while read filename
 	do
-		if [ -n "`binary_matches_api "${filename}" "NSLog"`" ]
+		if [ -n "$(binary_matches_api "${filename}" "NSLog")" ]
 		then
 			stdio_message_warn "binary_log" "${filename} uses logging API"
 		fi
@@ -49,5 +49,5 @@ binary_log_main () {
 }
 
 binary_log_fini () {
-	stdio_message_log "binary_log" "Ending at: `date`"
+	stdio_message_log "binary_log" "Ending at: $(date)"
 }

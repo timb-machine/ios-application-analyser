@@ -19,11 +19,12 @@
 	* Configuration
 	* Key material
 	* Changes
+* Memory
+	* ...
 * Dumping
-	* Memory
-	* Keychain
-	* SQLite
-	* Application cloning
+        * Keychain
+        * SQLite
+        * Application cloning
 * Runtime
 	* Snapshots
 		* Reversion

@@ -35,13 +35,13 @@
 . lib/misc/binary
 
 binary_insecure_random_init () {
-	stdio_message_log "binary_insecure_random" "Starting at: `date`"
+	stdio_message_log "binary_insecure_random" "Starting at: $(date)"
 }
 
 binary_insecure_random_main () {
 	binary_list | while read filename
 	do
-		random_apis="`binary_matches_api "${filename}" "srand|random"`"
+		random_apis="$(binary_matches_api "${filename}" "srand|random")"
 		if [ -n "${random_apis}" ]
 		then
 			stdio_message_warn "binary_insecure_random" "${filename} uses insecure random APIs (${random_apis})"
@@ -50,5 +50,5 @@ binary_insecure_random_main () {
 }
 
 binary_insecure_random_fini () {
-	stdio_message_log "binary_insecure_random" "Ending at: `date`"
+	stdio_message_log "binary_insecure_random" "Ending at: $(date)"
 }

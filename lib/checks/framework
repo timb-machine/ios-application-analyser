@@ -35,7 +35,7 @@
 . lib/misc/binary
 
 framework_init() {
-	stdio_message_log "framework" "Starting at: `date`"
+	stdio_message_log "framework" "Starting at: $(date)"
 }
 
 framework_main () {
@@ -50,5 +50,5 @@ framework_main () {
 }
 
 framework_fini () {
-	stdio_message_log "framework" "Ending at: `date`"
+	stdio_message_log "framework" "Ending at: $(date)"
 }

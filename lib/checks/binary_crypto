@@ -35,18 +35,18 @@
 . lib/misc/binary
 
 binary_crypto_init () {
-	stdio_message_log "binary_crypto" "Starting at: `date`"
+	stdio_message_log "binary_crypto" "Starting at: $(date)"
 }
 
 binary_crypto_main () {
 	binary_list | while read filename
 	do
-		weak_crypto_apis="`binary_matches_api "${filename}" "kCCAlgorithmDES|kCCAlgorithm3DES||kCCAlgorithmRC2|kCCAlgorithmRC4|kCCOptionECBMode|kCCOptionCBCMode"`"
+		weak_crypto_apis="$(binary_matches_api "${filename}" "kCCAlgorithmDES|kCCAlgorithm3DES||kCCAlgorithmRC2|kCCAlgorithmRC4|kCCOptionECBMode|kCCOptionCBCMode")"
 		if [ -n "${weak_crypto_apis}" ]
 		then
 			stdio_message_warn "binary_crypto" "${filename} uses weak crypto APIs (${weak_crypto_apis})"
 		fi
-		crypto_apis="`binary_matches_api "${filename}" "CCCryptorCreate|CCCryptorCreateFromData|CCCryptorRelease|CCCryptorUpdate|CCCryptorFinal|CCCryptorGetOutputLength|CCCryptorReset|CCCryptorRef|kCCEncrypt|kCCDecrypt|kCCAlgorithmAES128|kCCKeySizeAES128|kCCKeySizeAES192|kCCKeySizeAES256|kCCAlgorithmCAST|SecCertificateGetTypeID|SecIdentityGetTypeID|SecKeyGetTypeID|SecPolicyGetTypeID|SecTrustGetTypeID|SecCertificateCreateWithData|SecCertificateCreateFromData|SecCertificateCopyData|SecCertificateAddToKeychain|SecCertificateGetData|SecCertificateCopySubjectSummary|SecIdentityCopyCertificate|SecIdentityCopyPrivateKey|SecPKCS12Import|SecKeyGeneratePair|SecKeyEncrypt|SecKeyDecrypt|SecKeyRawSign|SecKeyRawVerify|SecKeyGetBlockSize|SecPolicyCopyProperties|SecPolicyCreateBasicX509|SecPolicyCreateSSL|SecTrustCopyCustomAnchorCertificates|SecTrustCopyExceptions|SecTrustCopyProperties|SecTrustCopyPolicies|SecTrustCopyPublicKey|SecTrustCreateWithCertificates|SecTrustEvaluate|SecTrustEvaluateAsync|SecTrustGetCertificateCount|SecTrustGetCertificateAtIndex|SecTrustGetTrustResult|SecTrustGetVerifyTime|SecTrustSetAnchorCertificates|SecTrustSetAnchorCertificatesOnly|SecTrustSetExceptions|SecTrustSetPolicies|SecTrustSetVerifyDate|SecCertificateRef|SecIdentityRef|SecKeyRef|SecPolicyRef|SecTrustRef"`"
+		crypto_apis="$(binary_matches_api "${filename}" "CCCryptorCreate|CCCryptorCreateFromData|CCCryptorRelease|CCCryptorUpdate|CCCryptorFinal|CCCryptorGetOutputLength|CCCryptorReset|CCCryptorRef|kCCEncrypt|kCCDecrypt|kCCAlgorithmAES128|kCCKeySizeAES128|kCCKeySizeAES192|kCCKeySizeAES256|kCCAlgorithmCAST|SecCertificateGetTypeID|SecIdentityGetTypeID|SecKeyGetTypeID|SecPolicyGetTypeID|SecTrustGetTypeID|SecCertificateCreateWithData|SecCertificateCreateFromData|SecCertificateCopyData|SecCertificateAddToKeychain|SecCertificateGetData|SecCertificateCopySubjectSummary|SecIdentityCopyCertificate|SecIdentityCopyPrivateKey|SecPKCS12Import|SecKeyGeneratePair|SecKeyEncrypt|SecKeyDecrypt|SecKeyRawSign|SecKeyRawVerify|SecKeyGetBlockSize|SecPolicyCopyProperties|SecPolicyCreateBasicX509|SecPolicyCreateSSL|SecTrustCopyCustomAnchorCertificates|SecTrustCopyExceptions|SecTrustCopyProperties|SecTrustCopyPolicies|SecTrustCopyPublicKey|SecTrustCreateWithCertificates|SecTrustEvaluate|SecTrustEvaluateAsync|SecTrustGetCertificateCount|SecTrustGetCertificateAtIndex|SecTrustGetTrustResult|SecTrustGetVerifyTime|SecTrustSetAnchorCertificates|SecTrustSetAnchorCertificatesOnly|SecTrustSetExceptions|SecTrustSetPolicies|SecTrustSetVerifyDate|SecCertificateRef|SecIdentityRef|SecKeyRef|SecPolicyRef|SecTrustRef")"
 		if [ -n "${crypto_apis}" ]
 		then
 			stdio_message_log "binary_crypto" "${filename} uses crypto APIs (${crypto_apis})"
@@ -56,5 +56,5 @@ binary_crypto_main () {
 }
 
 binary_crypto_fini () {
-	stdio_message_log "binary_crypto" "Ending at: `date`"
+	stdio_message_log "binary_crypto" "Ending at: $(date)"
 }

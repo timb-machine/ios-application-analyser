@@ -34,6 +34,6 @@ do
 	whatis "${functionname}" >/dev/null 2>&1
 	if [ "${?}" -eq 0 ]
 	then
-		printf "${functionname}\n"
+		printf "%s" "${functionname}\n"
 	fi
 done | tr "\n" "|"

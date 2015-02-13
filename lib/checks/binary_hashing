@@ -35,18 +35,18 @@
 . lib/misc/binary
 
 binary_hashing_init () {
-	stdio_message_log "binary_hashing" "Starting at: `date`"
+	stdio_message_log "binary_hashing" "Starting at: $(date)"
 }
 
 binary_hashing_main () {
 	binary_list | while read filename
 	do
-		weak_hashing_apis="`binary_matches_api "${filename}" "CC_MD2_Init|CC_MD2_Update|CC_MD2_Final|CC_MD2|MD2_Init|MD2_Update|MD2_Final|CC_MD4_Init|CC_MD4_Update|CC_MD4_Final|CC_MD4|MD4_Init|MD4_Update|MD4_Final|CC_MD5_Init|CC_MD5_Update|CC_MD5_Final|CC_MD5|MD5_Init|MD5_Update|MD5_Final|MD5Init|MD5Update|MD5Final|CC_SHA1_Init|CC_SHA1_Update|CC_SHA1_Final|CC_SHA1|SHA1_Init|SHA1_Update|SHA1_Final"`"
+		weak_hashing_apis="$(binary_matches_api "${filename}" "CC_MD2_Init|CC_MD2_Update|CC_MD2_Final|CC_MD2|MD2_Init|MD2_Update|MD2_Final|CC_MD4_Init|CC_MD4_Update|CC_MD4_Final|CC_MD4|MD4_Init|MD4_Update|MD4_Final|CC_MD5_Init|CC_MD5_Update|CC_MD5_Final|CC_MD5|MD5_Init|MD5_Update|MD5_Final|MD5Init|MD5Update|MD5Final|CC_SHA1_Init|CC_SHA1_Update|CC_SHA1_Final|CC_SHA1|SHA1_Init|SHA1_Update|SHA1_Final")"
 		if [ -n "${weak_hashing_apis}" ]
 		then
 			stdio_message_warn "binary_hashing" "${filename} uses weak hashing APIs (${weak_hashing_apis})"
 		fi
-		hashing_apis="`binary_matches_api "${filename}" "CC_SHA224_Init|CC_SHA224_Update|CC_SHA224_Final|CC_SHA224|SHA224_Init|SHA224_Update|SHA224_Final|CC_SHA256_Init|CC_SHA256_Update|CC_SHA256_Final|CC_SHA256|SHA256_Init|SHA256_Update|SHA256_Final|CC_SHA384_Init|CC_SHA384_Update|CC_SHA384_Final|CC_SHA384|SHA384_Init|SHA384_Update|SHA384_Final|CC_SHA512_Init|CC_SHA512_Update|CC_SHA512_Final|CC_SHA512|SHA512_Init|SHA512_Update|SHA512_Final"`"
+		hashing_apis="$(binary_matches_api "${filename}" "CC_SHA224_Init|CC_SHA224_Update|CC_SHA224_Final|CC_SHA224|SHA224_Init|SHA224_Update|SHA224_Final|CC_SHA256_Init|CC_SHA256_Update|CC_SHA256_Final|CC_SHA256|SHA256_Init|SHA256_Update|SHA256_Final|CC_SHA384_Init|CC_SHA384_Update|CC_SHA384_Final|CC_SHA384|SHA384_Init|SHA384_Update|SHA384_Final|CC_SHA512_Init|CC_SHA512_Update|CC_SHA512_Final|CC_SHA512|SHA512_Init|SHA512_Update|SHA512_Final")"
 		if [ -n "${hashing_apis}" ]
 		then
 			stdio_message_log "binary_hashing" "${filename} uses hashing APIs (${hashing_apis})"
@@ -55,5 +55,5 @@ binary_hashing_main () {
 }
 
 binary_hashing_fini () {
-	stdio_message_log "binary_hashing" "Ending at: `date`"
+	stdio_message_log "binary_hashing" "Ending at: $(date)"
 }

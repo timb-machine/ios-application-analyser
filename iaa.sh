@@ -34,11 +34,11 @@
 header () {
 	VERSION="0.2"
 	SVNVERSION="$Revision$" # Don't change this line.  Auto-updated.
-	SVNVNUM="`echo $SVNVERSION | sed \"s/[^0-9]//g\"`"
+	SVNVNUM="$(echo "${SVNVERSION}" | sed "s/[^0-9]//g")"
 	if [ -n "${SVNVNUM}" ]; then
 		VERSION="${VERSION}-svn-${SVNVNUM}"
 	fi
-	printf "ios-application-analyser v${VERSION}\n\n"
+	printf "ios-application-analyser v%s\n\n" "${VERSION}"
 }
 
 version () {
@@ -56,7 +56,7 @@ preamble () {
 usage () {
 	header
 	preamble
-	printf "Usage: ${0}\n"
+	printf "Usage: %s\n" "${0}"
 	printf "\n"
 	printf "\t--help\tdisplay this help and exit\n"
 	printf "\t--version\tdisplay version and exit\n"
@@ -65,14 +65,14 @@ usage () {
 	printf "\t--type\tselect from one of the following check types:\n"
 	for checktype in lib/checks/enabled/*
 	do
-		printf "\t\t`basename ${checktype}`\n"
+		printf "\t\t%s\n" "$(basename "${checktype}")"
 	done
 	printf "\t--checks\tprovide a comma separated list of checks to run, select from the following checks:\n"
 	for check in lib/checks/*
 	do
-		if [ "`basename \"${check}\"`" != "enabled" ]
+		if [ "$(basename "${check}")" != "enabled" ]
 		then
-			printf "\t\t`basename ${check}`\n"
+			printf "\t\t%s\n" "$(basename "${check}")"
 		fi
 	done
 	printf "\t--filename\tfilename\n"
@@ -111,7 +111,6 @@ do
 		--filename|-f)
 			shift
 			FILENAME="${1}"
-			DIRECTORYPATH="`dirname "${FILENAME}/.."`"
 			;;
 	esac
 	shift
@@ -124,29 +123,29 @@ then
 fi
 if [ -n "${CHECKS}" ]
 then
-	for checkfilename in `printf "${CHECKS}" | tr -d " " | tr "," " "`
+	for checkfilename in $(printf "%s" "${CHECKS}" | tr -d " " | tr "," " ")
 	do
 		if [ ! -e "lib/checks/${checkfilename}" ]
 		then
-			stdio_message_error "iaa" "the provided check name "${checkfilename}" does not exist"
+			stdio_message_error "iaa" "the provided check name \"${checkfilename}\" does not exist"
 		else
 			. "lib/checks/${checkfilename}"
-			`basename "${checkfilename}"`_init
-			`basename "${checkfilename}"`_main
-			`basename "${checkfilename}"`_fini
+			"$(basename "${checkfilename}")_init"
+			"$(basename "${checkfilename}")_main"
+			"$(basename "${checkfilename}")_fini"
 		fi
 	done
 else
 	if [ ! -d "lib/checks/enabled/${TYPE}" ]
 	then
-		stdio_message_error "iaa" "the provided check type '${TYPE}' does not exist"
+		stdio_message_error "iaa" "the provided check type \"${TYPE}\" does not exist"
 	else
 		for checkfilename in lib/checks/enabled/${TYPE}/*
 		do
 			. "${checkfilename}"
-			`basename "${checkfilename}"`_init
-			`basename "${checkfilename}"`_main
-			`basename "${checkfilename}"`_fini
+			"$(basename "${checkfilename}")_init"
+			"$(basename "${checkfilename}")_main"
+			"$(basename "${checkfilename}")_fini"
 		done
 	fi
 fi
