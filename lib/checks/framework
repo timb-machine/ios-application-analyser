@@ -25,14 +25,14 @@
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 #
-# (c) Tim Brown, 2014
+# (c) Tim Brown, 2015
 # <mailto:timb@nth-dimension.org.uk>
 # <http://www.nth-dimension.org.uk/> / <http://www.machine.org.uk/>
 #
 # Detect use of known frameworks
 
 . lib/misc/stdio
-. lib/misc/binary
+. lib/misc/file
 
 framework_init() {
 	stdio_message_log "framework" "Starting at: $(date)"
