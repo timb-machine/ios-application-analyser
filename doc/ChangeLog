@@ -8,6 +8,8 @@
 * Cleaned up based on shellcheck output
 * Added note to doc/COPYING referencing Twitter exchange with i0n1c about
   dumpdecrypted
+* Added lib/checks/enabled/post-install-quick and lib/checks/enabled/post-test-quick
+  which won't calculate the hashes for all files
 
 0.0 - 0.1
 
