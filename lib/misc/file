@@ -50,6 +50,18 @@ file_check_or_generate_cache() {
 			fi
 			printf "\n"
 		done >"$(basename "${FILENAME}").files_cache.$$"
+		if [ "$(file_is_directory "${DIRECTORYPATH}")" -eq 1 ]
+		then
+			find "${DIRECTORYPATH}" -ls | while read _ _ permissions _ userid groupid _ _ _ _ FILENAME restofline
+			do
+				printf "%s %s %s %s" "${permissions}" "${userid}" "${groupid}" "${FILENAME}"
+				if [ -n "${restofline}" ]
+				then
+					printf " %s" "${restofline}"
+				fi
+				printf "\n"
+			done >>"$(basename "${FILENAME}").files_cache.$$"
+		fi
 		stdio_message_log "file" "Cache generated..."
 	fi
 }

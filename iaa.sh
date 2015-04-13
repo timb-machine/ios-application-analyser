@@ -75,7 +75,8 @@ usage () {
 			printf "\t\t%s\n" "$(basename "${check}")"
 		fi
 	done
-	printf "\t--filename\tfilename\n"
+	printf "\t--filename\tfilename of binary\n"
+	printf "\t--directorypath\tdirectory path to application data\n"
 	exit 1
 }
 
@@ -111,6 +112,10 @@ do
 		--filename|-f)
 			shift
 			FILENAME="${1}"
+			;;
+		--directorypath|-d)
+			shift
+			DIRECTORYPATH="${1}"
 			;;
 	esac
 	shift

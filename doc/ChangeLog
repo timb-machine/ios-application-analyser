@@ -10,6 +10,9 @@
   dumpdecrypted
 * Added lib/checks/enabled/post-install-quick and lib/checks/enabled/post-test-quick
   which won't calculate the hashes for all files
+* Added support for iOS 8 style installs (use the --directorypath flag to inform
+  iaa.sh about where the application data lives (if not with the main app
+  itself))
 
 0.0 - 0.1
 
