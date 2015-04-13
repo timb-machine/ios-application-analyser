@@ -42,7 +42,7 @@ binary_check_or_decrypt() {
 	then
 		# TODO find a better location for this, maybe improve it to set a location to save binary to?
 		DYLD_INSERT_LIBRARIES="tools/3rdparty/dumpdecrypted/dumpdecrypted.dylib" "${FILENAME}"
-		if [ "$(file_is_regular "$(basename "${FILENAME}").decrypted")" ]
+		if [ "$(file_is_regular "$(basename "${FILENAME}").decrypted")" -eq 1 ]
 		then
 			mv "$(basename "${FILENAME}").decrypted" "$(basename "${FILENAME}").decrypted.$$"
 		else
