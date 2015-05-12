@@ -121,6 +121,11 @@ do
 	shift
 done
 header
+if [ ! -e "${FILENAME}" ]
+then
+	stdio_message_error "iaa" "the provided file name \"${FILENAME}\" does not exist"
+	exit 1
+fi
 if [ "${VERBOSE}" != "0" -a "${VERBOSE}" != "1" -a "${VERBOSE}" != "2" ]
 then
 	stdio_message_error "iaa" "the provided verbose level ${VERBOSE} is invalid - use 0, 1 or 2 next time"
