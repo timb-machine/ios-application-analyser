@@ -41,8 +41,7 @@ binary_SSP_init() {
 binary_SSP_main() {
 	binary_list | while read filename
 	do
-		SSP_apis="$(binary_matches_api "${filename}" "_stack_chk_fail")"
-		if [ -z "${SSP_apis}" ]
+		if [ -z "$(binary_matches_api "${filename}" "_stack_chk_fail")" ]
 		then
 			stdio_message_warn "binary_SSP" "${filename} does not use SSP APIs"
 		fi
