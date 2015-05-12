@@ -14,6 +14,7 @@
   iaa.sh about where the application data lives (if not with the main app
   itself))
 * Renamed classdump_matches_ios_api to classdump_matches_api
+* Changed binary_matches_api to use disassembly cache
 
 0.0 - 0.1
 

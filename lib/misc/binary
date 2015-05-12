@@ -82,14 +82,36 @@ binary_pie() {
 	fi
 }
 
+binary_check_or_disassemble() {
+	filename="${1}"
+	[ "$(file_is_regular "${filename}")" ] || false
+	if [ "$(file_is_directory  "$(basename "${FILENAME}").disassembled.$$")" -ne 1 ]
+	then
+		mkdir "$(basename "${FILENAME}").disassembled.$$"
+	fi
+	filenamehash="$(printf "${filename}" | md5sum | awk '{print $1}')"
+	if [ "$(file_is_regular  "$(basename "${FILENAME}").disassembled.$$/${filenamehash}.asm")" -ne 1 ]
+	then
+		stdio_message_log "binary" "Generating disassembly..."
+		otool -tV "${filename}" >"$(basename "${FILENAME}").disassembled.$$/${filenamehash}.asm"
+		stdio_message_log "binary" "Disassembly generated..."
+	fi
+}
+
+
 binary_matches_api() {
 	filename="${1}"
 	searchstring="${2}"
 	[ "$(file_is_regular "${filename}")" ] || false
 	[ "$(validate_is_string "${searchstring}")" ] || false
-        otool -Iv "${filename}" | egrep -oh "${searchstring}" | sort | uniq | xargs | tr " " ","
+	filenamehash="$(printf "${filename}" | md5sum | awk '{print $1}')"
+        egrep -oh -- "${searchstring}" "$(basename "${FILENAME}").disassembled.$$/${filenamehash}.asm" | sort | uniq | xargs | tr " " ","
 }
 
 binary_check_or_decrypt
+binary_list | while read filename
+do
+	binary_check_or_disassemble "${filename}"
+done
 
 fi
