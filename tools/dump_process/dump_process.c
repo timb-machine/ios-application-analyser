@@ -88,7 +88,7 @@ int main(int argc, char **argv) {
 				}
 				fclose(filehandle);
 				free(filename);
-       			}
+			}
 		}
 	}
 cleanup:
