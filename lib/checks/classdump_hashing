@@ -41,12 +41,12 @@ classdump_hashing_init() {
 classdump_hashing_main() {
 	classdump_list | while read filename
 	do
-		weak_hashing_apis="$(classdump_matches_ios_api "${filename}" "MD2|MD4|MD5|SHA1")"
+		weak_hashing_apis="$(classdump_matches_api "${filename}" "MD2|MD4|MD5|SHA1")"
 		if [ -n "${weak_hashing_apis}" ]
 		then
-			stdio_message_log "classdump_hashing" "${filename} may use weak hashing APIs (${weak_hashing_apis})"
+			stdio_message_warn "classdump_hashing" "${filename} may use weak hashing APIs (${weak_hashing_apis})"
 		fi
-		strong_hashing_apis="$(classdump_matches_ios_api "${filename}" "SHA224|SHA256|SHA384|SHA512")"
+		strong_hashing_apis="$(classdump_matches_api "${filename}" "SHA224|SHA256|SHA384|SHA512")"
 		if [ -n "${strong_hashing_apis}" ]
 		then
 			stdio_message_log "classdump_hashing" "${filename} may use strong hashing APIs (${strong_hashing_apis})"

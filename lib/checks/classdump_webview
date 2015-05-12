@@ -29,7 +29,7 @@
 # <mailto:timb@nth-dimension.org.uk>
 # <http://www.nth-dimension.org.uk/> / <http://www.machine.org.uk/>
 #
-# Check if binary files call web view function
+# Check if binary files call web view functions
 
 . lib/misc/stdio
 . lib/misc/classdump
@@ -41,10 +41,9 @@ classdump_webview_init() {
 classdump_webview_main() {
 	classdump_list | while read filename
 	do
-		webview_classes="$(classdump_matches_ios_api "${filename}" "UIWebView")"
-		if [ -n "${webview_classes}" ]
+		if [ -n "$(classdump_matches_api "${filename}" "UIWebView")" ]
 		then
-			stdio_message_warn "classdump_webview" "${filename} may use web view APIs (${webview_classes})"
+			stdio_message_warn "classdump_webview" "${filename} may use web view APIs"
 		fi
 	done
 }

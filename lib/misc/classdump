@@ -53,7 +53,7 @@ classdump_list() {
 	find "$(basename "${FILENAME}").classdump.$$" -type f
 }
 
-classdump_matches_ios_api() {
+classdump_matches_api() {
 	filename="${1}"
 	searchstring="${2}"
 	[ "$(file_is_regular "${filename}")" ] || false

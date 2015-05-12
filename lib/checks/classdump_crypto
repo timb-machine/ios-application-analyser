@@ -41,17 +41,16 @@ classdump_crypto_init() {
 classdump_crypto_main() {
 	classdump_list | while read filename
 	do
-		crypto_apis="$(classdump_matches_ios_api "${filename}" "CCryptorRef")"
-		if [ -n "${crypto_apis}" ]
+		if [ -n "$(classdump_matches_api "${filename}" "CCryptorRef")" ]
 		then
-			stdio_message_log "classdump_crypto" "${filename} uses crypto APIs (${crypto_apis})"
+			stdio_message_log "classdump_crypto" "${filename} uses crypto APIs"
 		fi
-		weak_crypto_apis="$(classdump_matches_ios_api "${filename}" "DES|3ES|RC2|RC4|ECB|CBC")"
+		weak_crypto_apis="$(classdump_matches_api "${filename}" "DES|3ES|RC2|RC4|ECB|CBC")"
 		if [ -n "${weak_crypto_apis}" ]
 		then
-			stdio_message_log "classdump_crypto" "${filename} may use weak crypto APIs (${weak_crypto_apis})"
+			stdio_message_warn "classdump_crypto" "${filename} may use weak crypto APIs (${weak_crypto_apis})"
 		fi
-		strong_crypto_apis="$(classdump_matches_ios_api "${filename}" "AES|CAST|RSA")"
+		strong_crypto_apis="$(classdump_matches_api "${filename}" "AES|CAST|RSA")"
 		if [ -n "${strong_crypto_apis}" ]
 		then
 			stdio_message_log "classdump_crypto" "${filename} may use strong crypto APIs (${strong_crypto_apis})"
