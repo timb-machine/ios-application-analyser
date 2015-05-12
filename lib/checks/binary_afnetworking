@@ -29,34 +29,35 @@
 # <mailto:timb@nth-dimension.org.uk>
 # <http://www.nth-dimension.org.uk/> / <http://www.machine.org.uk/>
 #
-# Detect use of known frameworks
+#  Check if binary files call AFNetworking functions
 
 . lib/misc/stdio
 . lib/misc/file
-. lib/misc/classdump
+. lib/misc/binary
 
-framework_init() {
-	stdio_message_log "framework" "Starting at: $(date)"
+binary_afnetworking_init() {
+	stdio_message_log "binary_afnetworking" "Starting at: $(date)"
 }
 
-framework_main() {
-	file_list_by_filename "config.xml|cordova.xml|phonegap.xml|plugins.xml" | while read filename
+binary_afnetworking_main() {
+	binary_list | while read filename
 	do
-		stdio_message_log "framework" "${filename} may be PhoneGap/Cordova config"
-	done
-	file_list_by_filename "monotouch.dll" | while read filename
-	do
-		stdio_message_log "framework" "${filename} may be MonoTouch runtime"
-	done
-	classdump_list | while read filename
-	do
-		if [ -n "$(classdump_matches_api "${filename}" "AFNetwork")" ]
+		binary_afnetworking_apis="$(binary_matches_api "${filename}" "setAllowInvalidCertificates|allowsInvalidSSLCertificate")"
+		if [ -n "${binary_afnetworking_apis}" ]
 		then
-			stdio_message_warn "framework" "${filename} uses AFNetworking APIs"
+			stdio_message_warn "binary_afnetworking" "${filename} uses AFNetworking APIs to allow invalid certificates (${binary_afnetworking_apis})"
+		fi
+		if [ -z "$(binary_matches_api "${filename}" "validatesDomainName")" ]
+		then
+			stdio_message_warn "binary_afnetworking" "${filename} does not use AFNetworking APIs to force hostname validation"
+		fi
+		if [ -z "$(binary_matches_api "${filename}" "SSLPinningMode")" ]
+		then
+			stdio_message_warn "binary_afnetworking" "${filename} does not use AFNetworking APIs for pinning"
 		fi
 	done
 }
 
-framework_fini() {
-	stdio_message_log "framework" "Ending at: $(date)"
+binary_afnetworking_fini() {
+	stdio_message_log "binary_afnetworking" "Ending at: $(date)"
 }
