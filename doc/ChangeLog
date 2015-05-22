@@ -4,7 +4,7 @@
 * Cleaned up check descriptions and messages
 * Added lib/checks/binary_SSL_cipher and lib/checks/binary_SSL_protocol
 * Added tools/dump_process
-* tools/generate_docs.sh now dumps binary search strings
+* Updated tools/generate_docs.sh to dump binary search strings
 * Cleaned up based on shellcheck output
 * Added note to doc/COPYING referencing Twitter exchange with i0n1c about
   dumpdecrypted
@@ -17,6 +17,8 @@
 * Changed binary_matches_api to use disassembly cache
 * Added lib/checks/binary_afnetworking and updated lib/checks/framework to check 
   for it
+* Updated tools/generate_docs.sh to deal with classdump_matches_api
+* Updated tools/generate_docs.sh to dump all messages
 
 0.0 - 0.1
 

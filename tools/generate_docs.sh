@@ -47,19 +47,26 @@ then
 		fi
 		if [ -n "$(printf "%s" "${line}" | egrep "() {")" ]
 		then
-			functionname="$(printf "%s" "${line}" | sed -e "s/ () {//g")"
+			functionname="$(printf "%s" "${line}" | sed -e "s/() {//g")"
 			printf "h2. %s()\n" "${functionname}"
 			printf "\n"
-		fi
-		if [ -n "$(printf "%s" "${line}" | egrep "binary_matches_api")" ]
-		then
-			searchstring="$(printf "%s" "${line}" | cut -f 3 -d " " | cut -f 2 -d "\"")"
-			printf "	< %s\n" "${searchstring}"
 		fi
 		if [ -n "$(printf "%s" "${line}" | egrep "=\".{[1-9]}")" ]
 		then
 			variablename="$(printf "%s" "${line}" | cut -f 1 -d "=")"
-			printf "    < %s\n" "${variablename}"
+			printf "	< %s\n" "${variablename}"
+			printf "\n"
+		fi
+		if [ -n "$(printf "%s" "${line}" | egrep "binary_matches_api")" ]
+		then
+			searchstring="$(printf "%s" "${line}" | sed "s/.*binary_matches_api//" | cut -f 3 -d " " | cut -f 2 -d "\"")"
+			printf "	/ %s\n" "${searchstring}"
+			printf "\n"
+		fi
+		if [ -n "$(printf "%s" "${line}" | egrep "classdump_matches_api")" ]
+		then
+			searchstring="$(printf "%s" "${line}" | cut -f 3 -d " " | cut -f 2 -d "\"")"
+			printf "	/ %s\n" "${searchstring}"
 			printf "\n"
 		fi
 		if [ -n "$(printf "%s" "${line}" | egrep "#" | egrep -v "^#$")" ]
@@ -67,25 +74,41 @@ then
 			if [ -n "$(printf "%s" "${line}" | egrep "#" | egrep -v "^#$" | egrep "TODO")" ]
 			then
 				commentstring="$(printf "%s" "${line}" | sed -e "s/.*# //g" -e "s/TODO //g" -e "s/%/%%/g")"
-				printf "      <TODO>\n"
-				printf "        %s\n" "${commentstring}"
-				printf "      </TODO>\n"
+				printf "	<TODO>\n"
+				printf "		%s\n" "${commentstring}"
+				printf "	</TODO>\n"
 				printf "\n";
 			else
 				commentstring="$(printf "%s" "${line}" | sed -e "s/.*# //g")"
-				printf "      <comment>\n"
-				printf "        %s\n" "${commentstring}"
-				printf "      </comment>\n"
+				printf "	<comment>\n"
+				printf "		%s\n" "${commentstring}"
+				printf "	</comment>\n"
 				printf "\n";
 			fi
 		fi
-		if [ -n "$(printf "%s" "${line}" | egrep "error")" ]
+		if [ -n "$(printf "%s" "${line}" | egrep "stdio_message_warn")" ]
 		then
 			errorstring="$(printf "%s" "${line}" | cut -f 4 -d "\"")"
-			printf "      <error>\n"
-			printf "        %s\n" "${errorstring}"
-			printf "      </error>\n"
+			printf "	<warn>\n"
+			printf "		%s\n" "${errorstring}"
+			printf "	</warn>\n"
 			printf "\n"
-		fi	
+		fi
+		if [ -n "$(printf "%s" "${line}" | egrep "stdio_message_log")" ]
+		then
+			errorstring="$(printf "%s" "${line}" | cut -f 4 -d "\"")"
+			printf "	<log>\n"
+			printf "		%s\n" "${errorstring}"
+			printf "	</log>\n"
+			printf "\n"
+		fi
+		if [ -n "$(printf "%s" "${line}" | egrep "stdio_message_error")" ]
+		then
+			errorstring="$(printf "%s" "${line}" | cut -f 4 -d "\"")"
+			printf "	<error>\n"
+			printf "		%s\n" "${errorstring}"
+			printf "	</error>\n"
+			printf "\n"
+		fi
 	done
 fi
