@@ -135,28 +135,48 @@ if [ -n "${CHECKS}" ]
 then
 	for checkfilename in $(printf "%s" "${CHECKS}" | tr -d " " | tr "," " ")
 	do
-		if [ ! -e "lib/checks/${checkfilename}" ]
+		if [ -e "lib/private/checks/${checkname}" ]
 		then
-			stdio_message_error "iaa" "the provided check name \"${checkfilename}\" does not exist"
-		else
-			. "lib/checks/${checkfilename}"
+			stdio_message_warn "iaa" "private copy of check name \"${checkfilename}\" exists"
+			. "lib/private/checks/${checkfilename}"
 			"$(basename "${checkfilename}")_init"
 			"$(basename "${checkfilename}")_main"
 			"$(basename "${checkfilename}")_fini"
+		else
+			if [ -e "lib/checks/${checkfilename}" ]
+			then
+				. "lib/checks/${checkfilename}"
+				"$(basename "${checkfilename}")_init"
+				"$(basename "${checkfilename}")_main"
+				"$(basename "${checkfilename}")_fini"
+			else
+				stdio_message_error "iaa" "the provided check name \"${checkfilename}\" does not exist"
+			fi
 		fi
 	done
 else
-	if [ ! -d "lib/checks/enabled/${TYPE}" ]
+	if [ -d "lib/private/checks/enabled/${TYPE}" ]
 	then
-		stdio_message_error "iaa" "the provided check type \"${TYPE}\" does not exist"
-	else
-		for checkfilename in lib/checks/enabled/${TYPE}/*
+		for checkfilename in lib/private/checks/enabled/${TYPE}/*
 		do
 			. "${checkfilename}"
 			"$(basename "${checkfilename}")_init"
 			"$(basename "${checkfilename}")_main"
 			"$(basename "${checkfilename}")_fini"
 		done
+	else
+		if [ -d "lib/checks/enabled/${TYPE}" ]
+		then
+			for checkfilename in lib/checks/enabled/${TYPE}/*
+			do
+				. "${checkfilename}"
+				"$(basename "${checkfilename}")_init"
+				"$(basename "${checkfilename}")_main"
+				"$(basename "${checkfilename}")_fini"
+			done
+		else
+			stdio_message_error "iaa" "the provided check type \"${TYPE}\" does not exist"
+		fi
 	fi
 fi
 exit 0

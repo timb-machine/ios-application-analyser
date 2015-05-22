@@ -19,6 +19,7 @@
   for it
 * Updated tools/generate_docs.sh to deal with classdump_matches_api
 * Updated tools/generate_docs.sh to dump all messages
+* Updated iaa.sh to support a private repo in preparation for public release
 
 0.0 - 0.1
 
