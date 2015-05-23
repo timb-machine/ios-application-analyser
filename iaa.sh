@@ -135,7 +135,7 @@ if [ -n "${CHECKS}" ]
 then
 	for checkfilename in $(printf "%s" "${CHECKS}" | tr -d " " | tr "," " ")
 	do
-		if [ -e "lib/private/checks/${checkname}" ]
+		if [ -e "lib/private/checks/${checkfilename}" ]
 		then
 			stdio_message_warn "iaa" "private copy of check name \"${checkfilename}\" exists"
 			. "lib/private/checks/${checkfilename}"
