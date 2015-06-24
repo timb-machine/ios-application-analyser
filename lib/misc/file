@@ -41,9 +41,9 @@ file_check_or_generate_cache() {
 	then
 		stdio_message_log "file" "Generating file cache..."
 		# the below looks a bit odd but it's the best way to normalise file's output since we're not interested in inodes, device major/minor numbers etc
-		find "$(dirname "${FILENAME}")/.." -ls | while read _ _ permissions _ userid groupid _ _ _ _ FILENAME restofline
+		find "$(dirname "${FILENAME}")/.." -ls | while read _ _ permissions _ userid groupid _ _ _ _ filename restofline
 		do
-			printf "%s %s %s %s" "${permissions}" "${userid}" "${groupid}" "${FILENAME}"
+			printf "%s %s %s %s" "${permissions}" "${userid}" "${groupid}" "${filename}"
 			if [ -n "${restofline}" ]
 			then
 				printf " %s" "${restofline}"
@@ -52,9 +52,9 @@ file_check_or_generate_cache() {
 		done >"$(basename "${FILENAME}").files_cache.$$"
 		if [ "$(file_is_directory "${DIRECTORYPATH}")" -eq 1 ]
 		then
-			find "${DIRECTORYPATH}" -ls | while read _ _ permissions _ userid groupid _ _ _ _ FILENAME restofline
+			find "${DIRECTORYPATH}" -ls | while read _ _ permissions _ userid groupid _ _ _ _ filename restofline
 			do
-				printf "%s %s %s %s" "${permissions}" "${userid}" "${groupid}" "${FILENAME}"
+				printf "%s %s %s %s" "${permissions}" "${userid}" "${groupid}" "${filename}"
 				if [ -n "${restofline}" ]
 				then
 					printf " %s" "${restofline}"
@@ -64,6 +64,18 @@ file_check_or_generate_cache() {
 		fi
 		stdio_message_log "file" "Cache generated..."
 	fi
+}
+
+file_list_by_filename() {
+	# patterns must always take the form "/path/*/find" i.e. regular expressions
+	pattern="${1}"
+	[ "$(validate_is_string "${pattern}")" ] || false
+	# this will only work for files, not dirs - mostly what we want I think
+	egrep -- "^-.* ${pattern}" "$(basename "${FILENAME}").files_cache.$$" | while read permissions userid groupid filename
+	do
+		# TODO what if pattern matches on symlink? we may still revert to glob() style checking
+		printf "%s\n" "${filename}"
+	done
 }
 
 file_list_by_perm() {
@@ -76,17 +88,19 @@ file_list_by_perm() {
 	done
 }
 
-file_list_by_filename() {
-	# patterns must always take the form " /path/*/find" i.e. regular expressions
+file_list_by_protection() {
+	# patterns must always take the form "x|y" i.e. regular expressions
 	pattern="${1}"
 	[ "$(validate_is_string "${pattern}")" ] || false
-	# this will only work for files, not dirs - mostly what we want I think
-	egrep -- "^-.*${pattern}" "$(basename "${FILENAME}").files_cache.$$" | while read permissions userid groupid filename
+	cat "$(basename "${FILENAME}").files_cache.$$" | while read _ _ _ filename
 	do
-		# TODO what if pattern matches on symlink? we may still revert to glob() style checking
-		printf "%s\n" "${filename}"
+		file_protection "${filename}" | egrep -- "${pattern}" | while read protection
+		do
+			printf "%s\n" "${filename}"
+		done
 	done
 }
+
 
 file_is_regular() {
 	filename="${1}"
@@ -116,6 +130,15 @@ file_md5sum() {
 	md5sum "${filename}" | while read md5sum _
 	do
 		printf "%s\n" "${md5sum}"
+	done
+}
+
+file_protection() {
+	filename="${1}"
+	[ "$(file_is_regular "${filename}")" ] || false
+	tools/dump_fileprotection/dump_fileprotection "${filename}" | while read protection
+	do
+		printf "%s\n" "${protection}"
 	done
 }
 
