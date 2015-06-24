@@ -39,7 +39,7 @@ file_hash_init() {
 }
 
 file_hash_main() {
-	file_list_by_perm "^-........." | while read filename
+	file_list_by_filename "*" | while read filename
 	do
 		file_md5sum "${filename}" | while read md5hash
 		do
