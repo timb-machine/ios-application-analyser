@@ -32,7 +32,7 @@
 # Locate files that contains an sqlite databases
 
 . lib/misc/stdio
-. lib/misc/binary
+. lib/misc/file
 
 sqlite_database_init() {
 	stdio_message_log "sqlite_database" "Starting at: $(date)"
