@@ -33,6 +33,7 @@ POSSIBILITY OF SUCH DAMAGE.
 #include <asl.h>
 #include <string.h>
 #include <stdio.h>
+#include <stdlib.h>
 
 int main(int argc, char **argv) {
 	aslmsg aslquery;
@@ -57,4 +58,5 @@ int main(int argc, char **argv) {
 		}
 	}
 	aslresponse_free(aslresponse);
+	exit(EXIT_SUCCESS);
 }

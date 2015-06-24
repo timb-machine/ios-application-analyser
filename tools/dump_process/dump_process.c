@@ -90,10 +90,12 @@ int main(int argc, char **argv) {
 				free(filename);
 			}
 		}
+		cleanup:
+			if (taskport != MACH_PORT_NULL) {
+				mach_port_deallocate(mach_task_self(), taskport);
+			}
+			exit(EXIT_SUCCESS);
+	} else {
+		exit(EXIT_FAILURE);
 	}
-cleanup:
-	if (taskport != MACH_PORT_NULL) {
-		mach_port_deallocate(mach_task_self(), taskport);
-	}
-	exit(EXIT_SUCCESS);
 }
