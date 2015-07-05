@@ -2,8 +2,6 @@ General:
 
 * doc/* exists for a reason, especially docs/ChangeLog
   * Changes should match commit messages, barring mistakes
-  * "Bug fix:" should be used to identify minor changes due to
-    coding errors
   * doc/ChangeLog should reference filename of changed files
 * Quote correctly
   * Use double-quotes, not single-quotes
